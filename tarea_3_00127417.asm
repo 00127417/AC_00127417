@@ -34,3 +34,32 @@ inicio: mov	al, [com+di]
 	
 	;guarda el tamaño de la variable com
 	len	equ	$-com
+
+
+;Ejercico 2
+
+	org 100h
+
+	mov ax, 2d
+	mov bx,2d
+	mov di, 0d
+;primer loop que abarca los datos de menos de 8 bit
+inicio: cmp di, 5d
+	je inicio2
+	mul bx
+	mov 	[di+210h],ax
+	inc	di
+	loop	inicio
+
+;loop que abarca los datos de mas de 8 bit
+inicio2: cmp di, 10d
+	je fin
+	mul bx
+	inc di
+	mov 	[di+210h],ax
+	inc di
+	loop	inicio2
+
+fin:	int 20h
+
+

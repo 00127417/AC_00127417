@@ -1,6 +1,6 @@
+; EJERCICIO 1
+	
 	org 100h
-
-	; EJERCICIO 1
 	; 00127417: ultimos 5 digitos -> 2,7,4,1,7
 	; promedio: 4.2  
 
@@ -36,7 +36,7 @@ inicio: mov	al, [com+di]
 	len	equ	$-com
 
 
-;Ejercico 2
+;EJERCICIO 2
 
 	org 100h
 
@@ -63,3 +63,34 @@ inicio2: cmp di, 10d
 fin:	int 20h
 
 
+;EJERCICIO 3
+
+	org 100h
+
+	mov ax, 0d
+	mov [220h], ax ;fibo(0) = 0
+	mov bx, 1d
+	mov [221h], bx ;fibo(1) = 1
+
+	add bx, ax
+	mov cx, 0d
+	mov di, 0d ;iterador
+fibo:	mov     cx, ax
+		add     cx, bx
+		mov     [222h + di], cx
+		mov     ax, bx
+		mov     bx, cx
+	
+			;condicion que se encarga de los numero menores de 8 bits
+		cmp     di,11d
+		je      final
+		inc     di
+			;condicion que se encarga de los numero mayores de 8 bits
+		cmp     di, 16
+		jb      fibo
+
+final:	inc     di
+		mov     cx, ax
+		add     cx, bx
+		mov     [222h + di], cx
+		int 20h
